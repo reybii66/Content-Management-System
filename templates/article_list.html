@@ -1,0 +1,42 @@
+<!-- article_list.html -->
+<h1>Article List</h1>
+
+<form method="get" action="{{ url_for('article_list') }}">
+    <input type="text" name="q" placeholder="Search">
+    <select name="author">
+        <option value="" selected>All Authors</option>
+        {% for user in users %}
+            <option value="{{ user.username }}">{{ user.username }}</option>
+        {% endfor %}
+    </select>
+    <input type="text" name="tag" placeholder="Filter by Tag">
+    <button type="submit">Search & Filter</button>
+</form>
+
+<ul>
+    {% for article in articles.items %}
+        <li>
+            <strong>{{ article.title }}</strong>
+            <p>Author: {{ article.author.username }}, Tags: {{ article.tags }}, Published: {{ article.pub_date }}</p>
+            <p>{{ article.content }}</p>
+            {% if article.file_name %}
+                <a href="{{ url_for('uploaded_files', filename=article.file_name) }}" target="_blank">View File</a>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+
+<!-- Pagination links -->
+<div class="pagination">
+    {% for page_num in articles.iter_pages() %}
+        {% if page_num %}
+            {% if articles.page == page_num %}
+                <span class="current">{{ page_num }}</span>
+            {% else %}
+                <a href="{{ url_for('article_list', page=page_num, q=request.args.get('q', ''), author=request.args.get('author', ''), tag=request.args.get('tag', '')) }}">{{ page_num }}</a>
+            {% endif %}
+        {% else %}
+            <span class="ellipsis">...</span>
+        {% endif %}
+    {% endfor %}
+</div>

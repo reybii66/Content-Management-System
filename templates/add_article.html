@@ -1,0 +1,12 @@
+<form method="post" action="{{ url_for('add_article') }}" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    {{ form.title.label }} {{ form.title }}
+    <br>
+    {{ form.content.label }} {{ form.content(class='ckeditor') }}
+    <br>
+    {{ form.tags.label }} {{ form.tags }}
+    <br>
+    {{ form.file.label }} {{ form.file }}
+    <br>
+    {{ form.submit }}
+</form>

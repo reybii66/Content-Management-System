@@ -1,0 +1,10 @@
+<form method="post" action="{{ url_for('edit_article', article_id=article.id) }}">
+    {{ form.hidden_tag() }}
+    {{ form.title.label }} {{ form.title }}
+    <br>
+    {{ form.content.label }} {{ form.content(class='ckeditor') }}
+    <br>
+    {{ form.tags.label }} {{ form.tags }}
+    <br>
+    {{ form.submit }}
+</form>

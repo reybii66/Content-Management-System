@@ -1,0 +1,14 @@
+<nav>
+    <!-- Add navigation links based on user roles -->
+    {% if current_user.is_authenticated %}
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('article_list') }}">Article List</a>
+        {% if current_user.is_admin %}
+            <a href="{{ url_for('manage_users') }}">Manage Users</a>
+        {% endif %}
+        <a href="{{ url_for('logout') }}">Logout</a>
+    {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('register') }}">Register</a>
+    {% endif %}
+</nav>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users</title>
+    <!-- Add any additional styles or scripts here -->
+</head>
+<body>
+    <h1>User Management</h1>
+    
+    <!-- Display a list of users with management options -->
+    <ul>
+        {% for user in users %}
+            <li>
+                <strong>{{ user.username }}</strong>
+                <p>Email: {{ user.email }}</p>
+                <!-- Add additional user information as needed -->
+
+                <!-- Example: Delete user button (only visible to admins) -->
+                {% if current_user.is_admin and user.id != current_user.id %}
+                    <form method="post" action="{{ url_for('delete_user', user_id=user.id) }}">
+                        {{ form.hidden_tag() }}
+                        <button type="submit" onclick="return confirm('Are you sure you want to delete this user?')">Delete User</button>
+                    </form>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Add any additional user management features or forms here -->
+
+    <!-- Add a link back to the main page or other relevant pages -->
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>
